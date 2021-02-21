@@ -1,0 +1,32 @@
+- /Users/ihoney/git/courses/CS6500/reflection:/Workspace
+
+hdfs dfs -mkdir /activity1/
+hdfs dfs -mkdir /activity1/data/
+hdfs dfs -mkdir /activity1/data/A01/
+
+hdfs dfs -put /Workspace/data/ncdc_data/*.txt /activity1/data/A01/
+
+hdfs dfs -du -s -h /activity1/data/A01/*
+
+
+
+
+
+
+python3 task00.py -r hadoop hdfs:///HDFS_DIR/
+python3 task00.py -r hadoop hdfs:///A01/data/ --output-dir /output/A01/task00
+
+python3 task00.py /Workspace/data/ncdc_data/
+
+
+
+
+python3 task00.py /Workspace/data/ncdc_data/1903.txt > output_task00.txt
+
+python3 task01.py /Workspace/data/ncdc_data/1903.txt
+
+
+http://localhost:8088/
+
+
+ssh djeon@129.1.64.111 -p 22022
