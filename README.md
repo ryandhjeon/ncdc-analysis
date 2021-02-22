@@ -38,7 +38,6 @@ __Reducer 2:__ The final reducer emitted the top 50 stations operated if non wer
 > Yes. Top 50 station list:
 > 108650, 103380, 29750, 29110, 106370, 104190, 267020, 103840, 101270, 101200, 228020, 124250, 124000, 122050, 121160, 121140, 116430, 115180, 112310, 111200, 110350, 109350, 108660, 107760, 107630, 107280, 107270, 106850, 105780, 105770, 105540, 105130, 105010, 104880, 104690, 104680, 104530, 104270, 104100, 103610, 101700, 101470, 101310, 100910, 100670, 100190, 28360, 333930, 330190, 265090
 
-
 ## Task #2: More Analysis
 > For each year, find descriptive statistics such as the min/max/mean/median temperatures for the year including data from all operable stations for that year.
 Graph all results.
@@ -49,7 +48,19 @@ __Reducer:__ Using the builtin python's statistics library, the minimum, maximum
 
 ![Task02](/img/task02.png)
 
-
 ## Task #3: Analysis
 
+The main goal was to answer the question of, 'Are SKC values being affected by other values?'
+I concluded that in year 1901, SCT has the most correlation with TEMP, BKN with SPD, and OVC with SPD.
+
+The details are included in the `task03` Jupyer-notebook file.
+
+![Task03](/img/task03.png)
+
 ## Task #4: Analysis
+
+The main goal was to find the stations that reported the highest or lowest temperatures of the years from 1901 to 1940.
+
+The details are included in the `task04` Jupyer-notebook file.
+
+![Task04](/img/task04.png)
