@@ -40,6 +40,15 @@ __Reducer 2:__ The final reducer emitted the top 50 stations operated if non wer
 
 
 ## Task #2: More Analysis
+> For each year, find descriptive statistics such as the min/max/mean/median temperatures for the year including data from all operable stations for that year.
+Graph all results.
+
+__Mapper:__ The year and temperatures corresponding to the year were extracted and yielded to the reducer.
+
+__Reducer:__ Using the builtin python's statistics library, the minimum, maximum, average, and the median temperatures were calculated and emitted.
+
+![Task02](/img/task02.png)
+
 
 ## Task #3: Analysis
 
