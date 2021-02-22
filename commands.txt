@@ -1,32 +1,71 @@
-- /Users/ihoney/git/courses/CS6500/reflection:/Workspace
-
-hdfs dfs -mkdir /activity1/
-hdfs dfs -mkdir /activity1/data/
-hdfs dfs -mkdir /activity1/data/A01/
-
-hdfs dfs -put /Workspace/data/ncdc_data/*.txt /activity1/data/A01/
-
-hdfs dfs -du -s -h /activity1/data/A01/*
-
-
-
-
-
-
-python3 task00.py -r hadoop hdfs:///HDFS_DIR/
-python3 task00.py -r hadoop hdfs:///A01/data/ --output-dir /output/A01/task00
-
-python3 task00.py /Workspace/data/ncdc_data/
-
-
-
-
-python3 task00.py /Workspace/data/ncdc_data/1903.txt > output_task00.txt
-
-python3 task01.py /Workspace/data/ncdc_data/1903.txt
-
-
-http://localhost:8088/
-
-
+## Login to Physical space
 ssh djeon@129.1.64.111 -p 22022
+
+## Put local data to hdfs
+hdfs dfs -put ./*.txt /user/djeon/A01/data/
+
+## Check data
+hdfs dfs -du -s -h /user/djeon/A01/data/*
+
+########
+# Task00
+########
+
+## Delete task00 output
+hdfs dfs -rm -r /user/djeon/A01/output/task00
+
+## Output task00
+python3 task00.py -r hadoop hdfs:///user/djeon/A01/data/ --output-dir /user/djeon/A01/output/task00
+
+## Check size
+hdfs dfs -ls /user/djeon/A01/output/task00/part-00000
+
+## Check lines
+hdfs dfs -cat /user/djeon/A01/output/task00/part-00000 | wc -l
+
+## Get output from hdfs
+hdfs dfs -get hdfs:///user/djeon/A01/output/task00/part-00000 ./out_task00
+
+########
+# Task01
+########
+
+## Running locally
+python3 task01.py out_task00
+
+## Delete task01 output
+hdfs dfs -rm -r /user/djeon/A01/output/task01
+
+## Output task01
+python3 task01.py -r hadoop hdfs:///user/djeon/A01/output/task00/part-00000 --output-dir /user/djeon/A01/output/task01
+
+## Check size
+hdfs dfs -ls /user/djeon/A01/output/task01/part-00000p
+
+## Check lines
+hdfs dfs -cat /user/djeon/A01/output/task01/part-00000 | wc -l
+
+## Get output from hdfs
+hdfs dfs -get hdfs:///user/djeon/A01/output/task01/part-00000 ./out_task01
+
+########
+# Task02
+########
+
+## Running locally
+python3 task02.py out_task00
+
+## Delete task02 output
+hdfs dfs -rm -r /user/djeon/A01/output/task02
+
+## Output task02
+python3 task02.py -r hadoop hdfs:///user/djeon/A01/output/task00/part-00000 --output-dir /user/djeon/A01/output/task02
+
+## Check size
+hdfs dfs -ls /user/djeon/A01/output/task02/part-00000
+
+## Get output from hdfs
+hdfs dfs -get hdfs:///user/djeon/A01/output/task02/part-00000 ./out_task02
+
+
+

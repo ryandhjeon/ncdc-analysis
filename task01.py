@@ -1,51 +1,55 @@
 from mrjob.job import MRJob
 from mrjob.step import MRStep
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 class MRTask01(MRJob):
+
     def steps(self):
         return [
-            MRStep(mapper=self.mapper1)
-                   # reducer=self.reducer1),
-            # MRStep(reducer=self.reducer2)
+            MRStep(mapper=self.mapper1,
+                   reducer=self.reducer1),
+            MRStep(reducer=self.reducer2)
         ]
 
-    def mapper1(self, key, line):
+    def mapper1(self, _, line):
         values = line.split()
         try:
             base = int(values[0])
-            ymd = values[1]
-            yield key, ymd
-
+            year = int(values[2])
+            if (year >= 1920 and year <= 1940):
+                yield base, year
         except ValueError:
             pass
 
     def reducer1(self, key, value):
-        # date1 = datetime(day=1, month=1, year=1903)
-        # date2 = datetime(day=1, month=1, year=1904)
-        # diff = (date2 - date1)
-        # diffYear = int(date2.strftime("%Y")) - int(date1.strftime("%Y"))
-        # val = (0.8 * diff.days)
+        year = list(value)
+        year_list = []
+        for i in year:
+            year_list.append(i)
+        year_set_list = list(set(year_list))
 
-        dayList = list(set(list(value))) # Get days in a list
+        date1 = datetime(day=1, month=1, year=1920)
+        date2 = datetime(day=1, month=1, year=1941)
+        diff_year = int(date2.strftime("%Y")) - int(date1.strftime("%Y"))
+        val = (0.8 * diff_year)
 
-        yearList = []
-        yearCount = []
+        if len(year_set_list) >= val:
+            yield None, key
 
-        # if (len(dayList) >= val):
-        for i in dayList:
-            yearList.append(i)
+        if len(year_set_list) >= diff_year:
+            yield key, None
 
-        yield key, len(dayList)
+        year_count = int(len(year_set_list))
+        yield None, (year_count, key, year_set_list)
 
-        # yearlist2 = list(set(yearList))
-        # if (len(yearlist2) == diffYear):
-        #     yield key, len(yearlist2)
-        # else:
-        #     # yield key, len(yearlist2)
-        #     yield key, diffYear
 
+    def reducer2(self, _, values):
+        count = 0
+        for year_count, key, year_set_list in sorted(values, reverse=True):
+            count += 1
+            if count <= 50:
+                yield (year_count, key), year_set_list
 
 
 if __name__ == '__main__':
