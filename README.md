@@ -6,6 +6,8 @@ Data is available at [NOAA(Link)](ftp://ftp.ncdc.noaa.gov/pub/data/noaa/)
 
 ---
 > The commands used are in the `commands.txt` file. 
+> 
+> The output files are excluded from git commit.
 
 ## Task #0: Filtering
 
