@@ -15,10 +15,10 @@ class MRTask01(MRJob):
     def mapper1(self, _, line):
         values = line.split()
         try:
-            base = int(values[0])
+            id = int(values[0])
             year = int(values[2])
             if (year >= 1920 and year <= 1940):
-                yield base, year
+                yield id, year
         except ValueError:
             pass
 
