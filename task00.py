@@ -34,15 +34,15 @@ class MRFilterData(MRJob):
             yield (id, year), (month, temp_list)
 
     def reducer2(self, key, pairs):
-        pair_list = list(pairs)
+        p_list = list(pairs)
         id = key[0]
         year = key[1]
 
-        if len(pair_list) == 12:
-            for pl in pair_list:
-                month = pl[0]
-                for p in pl[1]:
-                    yield id, (int(id), int(year), int(month), float(p))
+        if len(p_list) == 12:
+            for i in p_list:
+                month = i[0]
+                for temp in i[1]:
+                    yield id, (int(id), int(year), int(month), float(temp))
 
 
 if __name__ == '__main__':
